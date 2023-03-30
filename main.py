@@ -19,7 +19,7 @@ def main():
                             if pilot['flight_plan'][type] == airport:
                                 i += 1
                         with open(f'data/{airport}_{type}.txt', 'w') as f:
-                            f.write(f'{type.capitalize()}: {str(i)}')
+                            f.write(f'{type.capitalize()}s: {str(i)}')
             
             sleep(20)
         except Exception as e:
