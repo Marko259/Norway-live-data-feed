@@ -1,0 +1,22 @@
+{
+    "ENGM": [
+        "departure",
+        "arrival"
+    ],
+    "ENZV": [
+        "departure",
+        "arrival"
+    ],
+    "ENBR": [
+        "departure",
+        "arrival"
+    ],
+    "ENTC": [
+        "departure",
+        "arrival"
+    ],
+    "ENVA": [
+        "departure",
+        "arrival"
+    ]
+}
