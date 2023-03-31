@@ -8,6 +8,7 @@ def main():
             request = requests.get('https://data.vatsim.net/v3/vatsim-data.json', headers={'Accept': 'application/json'})
             if request.status_code == requests.codes.ok:
                 feedback = request.json()
+                get_total_in_outbounds(feedback)
                 get_dep_arr_data(feedback)
                 get_controller_data(feedback)
             get_metar_data()
@@ -40,6 +41,24 @@ def get_controller_data(feedback):
                 name = controller['name'].title()
         with open(f'data/controllers/{position.upper()}_controller.txt', 'w') as f:
             f.write(f'{name}')
+
+def get_total_in_outbounds(feedback):
+    inbounds = 0
+    outbounds = 0
+    for pilot in feedback["pilots"]:
+        if pilot['flight_plan'] is None or pilot['flight_plan']['arrival'] is None or pilot['flight_plan']['departure'] is None:
+            continue
+        if pilot["flight_plan"]["departure"].upper().startswith('EN'):
+            outbounds += 1
+
+        if pilot["flight_plan"]["arrival"].upper().startswith('EN'):
+            inbounds += 1
+    
+    with open('data/ENOR_outbounds.txt', 'w') as f:
+        f.write(f'Outbounds: {outbounds}')
+
+    with open('data/ENOR_inbounds.txt', 'w') as f:
+        f.write(f'Inbounds: {inbounds}')
 
 def get_metar_data():
     data = open('metar.json')
